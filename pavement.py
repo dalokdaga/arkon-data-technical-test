@@ -1,4 +1,7 @@
 import os
 import sys
+import importlib
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
-import app.core.common.commands.tasks.process_data
+
+
+task_module = importlib.import_module("app.core.common.commands.tasks.process_data")
