@@ -18,8 +18,7 @@ class BaseDBDriver(ABC):
 
     def execute_query(self, query: str, params: tuple = None):
         if params:
-            query = query % params
-        print(query)
+            query = query % params        
         df = pd.read_sql_query(text(query), self.conn)
         return df
 

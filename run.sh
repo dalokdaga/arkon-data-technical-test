@@ -1,1 +1,1 @@
-paver process_data --file_name=2024-01-18
+paver process_data --file_date=2024-01-18
