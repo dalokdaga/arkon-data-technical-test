@@ -1,7 +1,8 @@
 import pandas as pd
-from app.core.constans import DB_PATH, FILE_PATH
+from config.db.factory_db import FactoryDB
+import config.enviroment as env
 from app.core.component.base_component import BaseComponent
-from config.database_manager import DatabaseManager
+from config.db.drivers.sqlite.driver import DriverDB
 
 
 class EtlDataWifi(BaseComponent):
@@ -10,7 +11,7 @@ class EtlDataWifi(BaseComponent):
         self.run()
 
     def extraction(self) -> None:
-        self.__data_frame = pd.read_csv(f'{FILE_PATH}/{self.__file_name}')
+        self.__data_frame = pd.read_csv(f'{env.FILE_PATH}/{self.__file_name}')
 
     def transformation(self) -> None:
         self.__colonies = self.set_colonies()
@@ -59,14 +60,12 @@ class EtlDataWifi(BaseComponent):
         colonies['id'] = colonies.index + 1
 
         # Reorganizar el DataFrame para que la columna 'id' esté al principio
-        colonies = colonies[['id', 'colonia', 'alcaldia']]        
-
+        colonies = colonies[['id', 'colonia', 'alcaldia']]                
         return colonies
 
     def load(self) -> None:
-        database = DatabaseManager(f'{DB_PATH}/database.db')
-        # conn = sqlite3.connect(f'{DB_PATH}/database.db')
-        # Guarda el DataFrame en la base de datos SQLite
+        
+        database = FactoryDB.set_database()
         database.save_data(self.__data_frame, 'registros_wifi')
         database.save_data(self.__colonies, 'colonies')
 

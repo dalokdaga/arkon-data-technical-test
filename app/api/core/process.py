@@ -1,30 +1,20 @@
 
+from app.api.core.component.list_all_componet import AccessComponent
+
+
 class ApiProcess:
     @staticmethod
     def list_all_process() -> dict:
-        return {"access_points": []}
+        return AccessComponent.run()
 
     @staticmethod
     def data_by_id_process(id: str) -> dict:
-        return {
-            "data_one": {}
-        }
+        return AccessComponent.by_id_run(id)
 
     @staticmethod
     def data_by_cologne_process(cologne: str) -> dict:
-        return {
-            "access_points": [cologne]
-        }
+        return  AccessComponent.by_cologne_run(cologne)
 
     @staticmethod
     def wifi_ordered_by_proximity_process(latitude: float, longitude: float) -> dict:
-        return {
-            "access_points": [
-                {
-                    "list_by_proximity": {
-                        "latitude": latitude,
-                        "longitude": longitude
-                    }
-                }
-            ]
-        }
+        return AccessComponent.proximity_run(latitude, longitude)
