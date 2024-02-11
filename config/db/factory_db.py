@@ -10,4 +10,3 @@ class FactoryDB:
         rule_db = open_json(env.PATH_RULE_DB)[env.TYPE_DB]
         module_db = import_module(f"config.db.drivers.{rule_db['driver']}.driver")
         return module_db.DriverDB(rule_db['connection_string'])
-

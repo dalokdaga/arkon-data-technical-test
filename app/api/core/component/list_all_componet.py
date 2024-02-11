@@ -3,7 +3,7 @@ from config.db.factory_db import FactoryDB
 
 class AccessComponent:
     @staticmethod
-    def all_info_run():
+    def all_info_run() -> list:
         database = FactoryDB.set_database()
         data = database.execute_query("""
             SELECT 
@@ -19,10 +19,10 @@ class AccessComponent:
         """)
         df_json = data.to_dict(orient='records')
         print(df_json)
-        return {"access_points": df_json}
+        return df_json
 
     @staticmethod
-    def by_cologne_run(cologne: str):
+    def by_cologne_run(cologne: str) -> list:
         database = FactoryDB.set_database()
         data = database.execute_query("""
         SELECT 
@@ -36,14 +36,13 @@ class AccessComponent:
         FROM arkon_test.registros_wifi rw 
         left join arkon_test.colonies c on rw.id_colonia = c.id 
         where c.colonia  LIKE '%s'
-             
         """, (f"%{cologne}%"))
         df_json = data.to_dict(orient='records')
         print(df_json)
-        return {"access_points": df_json}
+        return df_json
 
     @staticmethod
-    def by_id_run(id: str):
+    def by_id_run(id: str) -> dict:
         database = FactoryDB.set_database()
         data = database.execute_query("""
         SELECT 
@@ -57,7 +56,6 @@ class AccessComponent:
         FROM arkon_test.registros_wifi rw 
         left join arkon_test.colonies c on rw.id_colonia = c.id 
         where rw.id  LIKE '%s'
-             
         """, (f"%{id}%"))
         df_json = data.to_dict(orient='records')
         print(df_json)
@@ -66,7 +64,7 @@ class AccessComponent:
         return {"data_one": df_json}
 
     @staticmethod
-    def proximity_run(latitude: float, longitude: float):
+    def proximity_run(latitude: float, longitude: float) -> list:
         database = FactoryDB.set_database()
         data = database.execute_query("""
         SELECT
@@ -86,8 +84,7 @@ class AccessComponent:
             rw.id_colonia = c.id
         ORDER BY
             distancia
-             
         """, (latitude, longitude, latitude))
         df_json = data.to_dict(orient='records')
         print(df_json)
-        return {"access_points": df_json}
+        return df_json

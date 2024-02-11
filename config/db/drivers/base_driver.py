@@ -2,6 +2,7 @@ from sqlalchemy import text
 from abc import ABC, abstractmethod
 import pandas as pd
 
+
 class BaseDBDriver(ABC):
     @abstractmethod
     def connect(self):
@@ -15,7 +16,7 @@ class BaseDBDriver(ABC):
         except Exception as e:
             print(f"Error disconnecting from database: {e}")
 
-    def execute_query(self, query: str, params: tuple= None):
+    def execute_query(self, query: str, params: tuple = None):
         if params:
             query = query % params
         print(query)

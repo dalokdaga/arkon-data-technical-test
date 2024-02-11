@@ -2,7 +2,6 @@ import pandas as pd
 from config.db.factory_db import FactoryDB
 import config.enviroment as env
 from app.core.component.base_component import BaseComponent
-from config.db.drivers.sqlite.driver import DriverDB
 
 
 class EtlDataWifi(BaseComponent):
@@ -16,6 +15,16 @@ class EtlDataWifi(BaseComponent):
     def transformation(self) -> None:
         self.__colonies = self.set_colonies()
 
+        # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
+        # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
+        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(' ', ''))
+        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(',', ''))
+        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace('.', ''))
+        # Suponiendo que la columna de la longitud tiene el formato '-9907624200'
+        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: f"{x[:3]}.{x[3:6]}{x[6:]}")
+
+        self.__data_frame['longitud'] = self.__data_frame['longitud'].astype(float)
+        self.__data_frame['latitud'] = self.__data_frame['latitud'].astype(float)
         # Suponiendo que tienes los DataFrames 'colonias' y 'registros'
 
         # Combinar los DataFrames 'registros' y 'colonias' basándote en las columnas 'colonia' y 'alcaldia'
@@ -63,8 +72,7 @@ class EtlDataWifi(BaseComponent):
         colonies = colonies[['id', 'colonia', 'alcaldia']]                
         return colonies
 
-    def load(self) -> None:
-        
+    def load(self) -> None:        
         database = FactoryDB.set_database()
         database.save_data(self.__data_frame, 'registros_wifi')
         database.save_data(self.__colonies, 'colonies')
