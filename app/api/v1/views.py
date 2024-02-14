@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from app.api.core.handler import ApiHandler
 from app.api.core.paginator import Paginator
 from app.api.core.serializers.all_response import AllResponse
-from app.api.core.serializers.id_response import DataOneResponse
+from app.api.core.serializers.id_response import AccessPoint
 from fastapi_pagination.utils import disable_installed_extensions_check
 
 disable_installed_extensions_check()
@@ -26,7 +26,7 @@ def wifi_access_points(
 
 
 @router.get("/wifi_access_points_by_id/{id}", response_class=JSONResponse)
-def wifi_access_points_by_id(id: str) -> DataOneResponse:
+def wifi_access_points_by_id(id: str) -> AccessPoint:
     return ApiHandler.data_by_id_handler(id=id)
 
 

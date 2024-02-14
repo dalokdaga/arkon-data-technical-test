@@ -26,7 +26,7 @@ class ConsultAccessComponent:
         df_json = data.to_dict(orient='records')
         if len(df_json) > 0:
             df_json = df_json[0]
-        return {"data_one": df_json}
+        return df_json
 
     @staticmethod
     def proximity_run(latitude: float, longitude: float) -> list:
