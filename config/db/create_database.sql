@@ -1,0 +1,1 @@
+CREATE DATABASE `arkon_test` /*!40100 DEFAULT CHARACTER SET utf8 */;

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  fastapi-arkon-data:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - TYPE_DB=mysql
+      - CONNECTION_URI=mysql+pymysql://root:dgu123456@mysql-arkon-data:3306/arkon_test
+      - PATH_RULE_DB=config/db/drivers/rule_db.json
+      - FILE_NAME=puntos_de_acceso_wifi.csv
+      - FILE_PATH=storage/data_cdmx_wifi
+    depends_on:
+      - mysql-arkon-data
+
+  mysql-arkon-data:  # Cambio de nombre aquí
+    container_name: mysql_arkon
+    image: mysql:5.7
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: dgu123456   
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./config/db/create_database.sql:/docker-entrypoint-initdb.d/create_database.sql
+
+volumes:
+  mysql_data:
