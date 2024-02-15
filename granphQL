@@ -1,4 +1,24 @@
 {
+  wifiAccessPoints(offset: 0, limit: 10) {
+    accessPoints {
+      id
+      programa
+      fechaInstalacion
+      latitud
+      longitud
+      colonia
+      alcaldia
+    }
+    paginationInfo {
+      totalItems
+      totalPages
+      currentPage
+      itemsPerPage
+    }
+  }
+}
+
+{
   wifiAccessPoints(offset: 0, limit: 10, cologne: "1A AMPLIACION SANTIAGO ACAHUALTEPEC") {
     accessPoints {
       id
@@ -31,7 +51,7 @@
 }
 
 {
-  wifiOrderedByProximity(latitude: 123.45, longitude: 67.89, offset: 0, limit: 50) {
+  wifiOrderedByProximity(latitude:19.55087247, longitude: -99.12658196, offset: 0, limit: 50) {
     accessPoints {
       id
       programa

@@ -1,36 +1,25 @@
-from app.core.common.utilities import open_text
-from config.db.factory_db import FactoryDB
-
+from app.api.core.query_set import (
+    get_all_wifi_records, search_wifi_records_like, get_wifi_record_by_id, get_all_wifi_proximity)
 PATH_QUERYS = "app/api/core/querys/"
 
 
 class ConsultAccessComponent:
     @staticmethod
-    def all_info_run() -> list:
-        database = FactoryDB.set_database()
-        data = database.execute_query(open_text(f"{PATH_QUERYS}all_access.sql"))
-        df_json = data.to_dict(orient='records')        
-        return df_json
+    def all_info_run(offset: int, limit: int) -> list:
+        records = get_all_wifi_records(offset, limit)      
+        return records
 
     @staticmethod
-    def by_cologne_run(cologne: str) -> list:
-        database = FactoryDB.set_database()
-        data = database.execute_query(open_text(f"{PATH_QUERYS}by_cologne.sql"), (f"%{cologne}%"))
-        df_json = data.to_dict(orient='records')        
-        return df_json
+    def by_cologne_run(cologne: str, offset, limit) -> list:
+        records = search_wifi_records_like(cologne, offset, limit)       
+        return records
 
     @staticmethod
     def by_id_run(id: str) -> dict:
-        database = FactoryDB.set_database()
-        data = database.execute_query(open_text(f"{PATH_QUERYS}by_id.sql"), (f"{id}"))
-        df_json = data.to_dict(orient='records')
-        if len(df_json) > 0:
-            df_json = df_json[0]
-        return df_json
+        record = get_wifi_record_by_id(id)
+        return record
 
     @staticmethod
-    def proximity_run(latitude: float, longitude: float) -> list:
-        database = FactoryDB.set_database()
-        data = database.execute_query(open_text(f"{PATH_QUERYS}proximity.sql"), (latitude, longitude, latitude))
-        df_json = data.to_dict(orient='records')        
-        return df_json
+    def proximity_run(latitude: float, longitude: float, offset: int, limit: int) -> list:
+        record = get_all_wifi_proximity(latitude, longitude, offset, limit)
+        return record

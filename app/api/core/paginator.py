@@ -1,19 +1,23 @@
-from math import ceil
-from typing import List, Any, Tuple, Dict
 
 
-class Paginator:
-    @staticmethod
-    def paginate_results(results: List[Any], offset: int, limit: int) -> Tuple[List[Any], Dict[str, Any]]:
-        total_items = len(results)
-        start_index = offset
-        end_index = min(offset + limit, total_items)
-        total_pages = ceil(total_items / limit)
-        current_page_results = results[start_index:end_index]
-        pagination_info = {
-            "total_items": total_items,
-            "total_pages": total_pages,
-            "current_page": offset // limit + 1,
-            "items_per_page": limit
+class PaginationInfo:
+    def __init__(self, total_items, limit, offset):
+        self.total_items = total_items
+        self.limit = limit
+        self.offset = offset
+
+    @property
+    def total_pages(self):
+        return (self.total_items + self.limit - 1) // self.limit
+
+    @property
+    def current_page(self):
+        return self.offset // self.limit + 1
+
+    def as_dict(self):
+        return {
+            "total_items": self.total_items,
+            "total_pages": self.total_pages,
+            "current_page": self.current_page,
+            "items_per_page": self.limit
         }
-        return current_page_results, pagination_info

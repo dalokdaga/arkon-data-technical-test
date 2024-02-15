@@ -3,15 +3,15 @@ from app.api.core.process import ApiProcess
 
 class ApiHandler:
     @staticmethod
-    def list_all_handler() -> list:
-        return ApiProcess.list_all_process()
+    def list_all_handler(**kwargs) -> dict:
+        return ApiProcess.list_all_process(**kwargs)
 
     @staticmethod
     def data_by_id_handler(**kwargs) -> dict:
         return ApiProcess.data_by_id_process(**kwargs)
 
     @staticmethod
-    def data_by_cologne_handler(**kwargs) -> list:
+    def data_by_cologne_handler(**kwargs) -> dict:
         return ApiProcess.data_by_cologne_process(**kwargs)
 
     @staticmethod
