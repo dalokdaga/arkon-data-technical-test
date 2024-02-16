@@ -1,6 +1,5 @@
 from app.api.core.query_set import (
     get_all_wifi_records, search_wifi_records_like, get_wifi_record_by_id, get_all_wifi_proximity)
-PATH_QUERYS = "app/api/core/querys/"
 
 
 class ConsultAccessComponent:

@@ -1,41 +1,55 @@
+import requests
 import pandas as pd
+from io import StringIO
+from app.core.exceptions import ExtractionErrorException, LoadErrorException, TransformationErrorException
 from config.db.factory_db import FactoryDB
 import config.enviroment as env
 from app.core.component.base_component import BaseComponent
 
 
 class EtlDataWifi(BaseComponent):
-    def __init__(self, file_name: str) -> None:
-        self.__file_name = file_name
+    def __init__(self, base_date: str=None) -> None:
+        self.__base_date = base_date
         self.run()
 
-    def extraction(self) -> None:
-        self.__data_frame = pd.read_csv(f'{env.FILE_PATH}/{self.__file_name}')
+    def extraction(self, ) -> None:
+        try:
+            url = env.URL_BASE.format(BASE_DATE=self.__base_date)
+            response = requests.get(url)
+            if response.status_code != 200:
+                raise ExtractionErrorException(f"Failed to download CSV file. Status Code: {response.status_code}")
+            csv_content = StringIO(response.text)
+            self.__data_frame = pd.read_csv(csv_content)           
+        except Exception as e:
+            raise ExtractionErrorException(f"Extraction failed: {str(e)}")
 
     def transformation(self) -> None:
-        self.__colonies = self.set_colonies()
+        try:
+            self.__colonies = self.set_colonies()
 
-        # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
-        # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
-        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(' ', ''))
-        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(',', ''))
-        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace('.', ''))
-        # Suponiendo que la columna de la longitud tiene el formato '-9907624200'
-        self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: f"{x[:3]}.{x[3:6]}{x[6:]}")
+            # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
+            # Eliminar todas las comas excepto la primera y luego reemplazar la primera coma decimal con un punto
+            self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(' ', ''))
+            self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace(',', ''))
+            self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: x.replace('.', ''))
+            # Suponiendo que la columna de la longitud tiene el formato '-9907624200'
+            self.__data_frame['longitud'] = self.__data_frame['longitud'].apply(lambda x: f"{x[:3]}.{x[3:6]}{x[6:]}")
 
-        self.__data_frame['longitud'] = self.__data_frame['longitud'].astype(float)
-        self.__data_frame['latitud'] = self.__data_frame['latitud'].astype(float)
-        # Suponiendo que tienes los DataFrames 'colonias' y 'registros'
+            self.__data_frame['longitud'] = self.__data_frame['longitud'].astype(float)
+            self.__data_frame['latitud'] = self.__data_frame['latitud'].astype(float)
+            # Suponiendo que tienes los DataFrames 'colonias' y 'registros'
 
-        # Combinar los DataFrames 'registros' y 'colonias' basándote en las columnas 'colonia' y 'alcaldia'
-        merge = self.__data_frame.merge(
-            self.__colonies[['id', 'colonia', 'alcaldia']], on=['colonia', 'alcaldia'], how='left')
+            # Combinar los DataFrames 'registros' y 'colonias' basándote en las columnas 'colonia' y 'alcaldia'
+            merge = self.__data_frame.merge(
+                self.__colonies[['id', 'colonia', 'alcaldia']], on=['colonia', 'alcaldia'], how='left')
 
-        # Renombrar la columna 'id' resultante a 'id_colonia'
-        merge.rename(columns={'id_y': 'id_colonia'}, inplace=True)
-        merge.rename(columns={'id_x': 'id'}, inplace=True)
+            # Renombrar la columna 'id' resultante a 'id_colonia'
+            merge.rename(columns={'id_y': 'id_colonia'}, inplace=True)
+            merge.rename(columns={'id_x': 'id'}, inplace=True)
 
-        self.__data_frame = merge[['id', 'id_colonia', 'programa', 'fecha_instalacion', 'latitud', 'longitud']]
+            self.__data_frame = merge[['id', 'id_colonia', 'programa', 'fecha_instalacion', 'latitud', 'longitud']]
+        except Exception as e:
+            raise TransformationErrorException(f"Transformation failed: {str(e)}")
 
     def set_colonies(self) -> pd.DataFrame:
         # Eliminar los registros que tienen valores erróneos o faltantes en la columna 'colonia'
@@ -72,9 +86,12 @@ class EtlDataWifi(BaseComponent):
         colonies = colonies[['id', 'colonia', 'alcaldia']]                
         return colonies
 
-    def load(self) -> None:        
-        database = FactoryDB.set_database()
-        database.save_data(self.__data_frame, 'registros_wifi')
-        database.save_data(self.__colonies, 'colonies')
+    def load(self) -> None:
+        try:       
+            database = FactoryDB.set_database()
+            database.save_data(self.__data_frame, 'registros_wifi')
+            database.save_data(self.__colonies, 'colonies')
 
-        database.disconnect()
+            database.disconnect()
+        except Exception as e:
+            raise LoadErrorException(f"Load failed: {str(e)}")
