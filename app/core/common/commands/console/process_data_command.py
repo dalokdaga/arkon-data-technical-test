@@ -6,4 +6,4 @@ class ProcessData:
 
     @staticmethod
     def process_data(file_date: str):        
-        return EtlDataWifi(f'{file_date}-{env.FILE_NAME}')
+        return EtlDataWifi(file_date)
