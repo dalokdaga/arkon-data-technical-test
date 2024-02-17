@@ -23,7 +23,7 @@ Descripción corta del proyecto.
     pip install -r requirements.txt
     ```
 
-## Configuración Local
+## Configuración Local sin docker
 
 1. Crea un archivo `.env` en la raíz del proyecto y configura las variables de entorno necesarias.
 
@@ -38,7 +38,7 @@ Descripción corta del proyecto.
     CELERY_BROKER_URL=redis://localhost:6379/0
     ```
 
-## Uso
+## Uso Local sin docker
 
 1. Ejecuta el servidor con Uvicorn:
 
@@ -59,6 +59,136 @@ Descripción corta del proyecto.
 
     ```bash
     nohup celery -A config.celery worker --beat > celery.log 2>&1 &      # Linux
+    ```
+
+## Instalación con Docker Compose
+
+Para instalar y ejecutar la aplicación utilizando Docker Compose, sigue estos pasos:
+
+1. Asegúrate de tener Docker y Docker Compose instalados en tu sistema.
+
+2. Clona el repositorio:
+
+    ```bash
+    git clone https://github.com/dalokdaga/arkon-data-technical-test
+    ```
+
+3. Navega hasta el directorio del proyecto:
+
+    ```bash
+    cd arkon-data-technical-test
+    ```
+
+4. No es necesario setear variables de entorno ya que estas estan configuradas en el docker-compose
+
+5. Validar que los puertos 3306(MySql) y 6379(Redis) no esten en uso
+
+6. Ejecuta el comando `docker-compose up` para construir e iniciar los contenedores:
+
+    ```bash
+    docker-compose up -d --build
+    ```
+
+7. Una vez que los contenedores estén en funcionamiento, puedes acceder a la API en tu navegador web:
+
+    ```
+    http://localhost:8000
+    ```
+
+8. También puedes acceder a la documentación de la API en:
+
+    ```
+    http://localhost:8000/docs
+    ```
+
+Recuerda que si necesitas detener los contenedores en algún momento, puedes ejecutar:
+
+    ```bash
+    docker-compose down
+    ```
+## Ejemplos de uso, consultas con GraphQL
+    ```bash
+    Obtener una lista paginada de puntos de acceso WiFi:
+    {
+        wifiAccessPoints(offset: 0, limit: 10) {
+            accessPoints {
+            id
+            programa
+            fechaInstalacion
+            latitud
+            longitud
+            colonia
+            alcaldia
+            }
+            paginationInfo {
+            totalItems
+            totalPages
+            currentPage
+            itemsPerPage
+            }
+        }
+    }  
+    ```
+
+    ```bash
+    Obtener una lista paginada de puntos de acceso dada una colonia:
+    {
+        wifiAccessPoints(offset: 0, limit: 10, colony: "1A AMPLIACION SANTIAGO ACAHUALTEPEC") {
+            accessPoints {
+            id
+            programa
+            fechaInstalacion
+            latitud
+            longitud
+            colonia
+            alcaldia
+            }
+            paginationInfo {
+            totalItems
+            totalPages
+            currentPage
+            itemsPerPage
+            }
+        }
+    }
+    ```
+
+    ```bash
+    Consultar la información de un punto dado su ID:
+    {
+        wifiAccessPointsById(id: "19 DE MAYO-01") {
+            id
+            programa
+            fechaInstalacion
+            latitud
+            longitud
+            colonia
+            alcaldia
+        }
+    }    
+    ```
+
+    ```bash
+    Obtener una lista paginada de puntos WiFi ordenada por proximidad a una coordenada dada [lat, long]:
+    {
+        wifiOrderedByProximity(latitude:19.55087247, longitude: -99.12658196, offset: 0, limit: 50) {
+            accessPoints {
+            id
+            programa
+            fechaInstalacion
+            latitud
+            longitud
+            colonia
+            alcaldia
+            }
+            paginationInfo {
+            totalItems
+            totalPages
+            currentPage
+            itemsPerPage
+            }
+        }
+    }    
     ```
 
 ## Estructura del Proyecto
