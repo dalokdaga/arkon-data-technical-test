@@ -2,6 +2,10 @@ import re
 from paver.easy import task, cmdopts
 from app.core.common.commands.console.process_data_command import ProcessDataConsole
 from app.core.exceptions import PaverCommandException
+from config.logging import setup_logging
+
+logger = setup_logging()
+
 
 @task
 @cmdopts([
@@ -19,5 +23,7 @@ def process_data(options):
                 raise PaverCommandException("Invalid 'file_date' format. Please use YYYY-MM-DD.")
         else:
             raise PaverCommandException("Missing 'file_date' argument.")
+        logger.info(f"Paver - Message: {file_date} done!")
     except Exception as e:
+        logger.error(f"Paver - Message: {e}")
         print(e)        
