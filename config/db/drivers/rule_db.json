@@ -2,9 +2,5 @@
     "mysql": {
         "driver": "mysql",
         "connection_string": "${CONNECTION_URI}"
-    },
-    "sqlite": {
-        "driver": "sqlite",
-        "connection_string": "${SQLITE_DB_PATH}"
     }
 }

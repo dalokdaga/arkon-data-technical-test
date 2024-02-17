@@ -1,8 +1,8 @@
+from app.api.v1.graphql.wifi_access_schema import Query
 import importlib
 import strawberry
 from fastapi import FastAPI
 from strawberry.asgi import GraphQL
-from app.api.v1.graphql.wifi_access_schema import Query
 
 
 schema = strawberry.Schema(query=Query)

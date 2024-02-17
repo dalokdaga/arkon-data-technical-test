@@ -1,4 +1,4 @@
-from config import app
+from config.app_run import app
 from fastapi import APIRouter
 from app.api.v1 import views as api
 urls = APIRouter()
