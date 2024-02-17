@@ -51,7 +51,7 @@ Descripción corta del proyecto.
     ```
     http://localhost:8000/docs
     ```
-1. Ejecuta Celery:
+3. Ejecuta Celery:
 
     ```bash
     celery -A config.celery worker      # Windows
@@ -60,8 +60,22 @@ Descripción corta del proyecto.
     ```bash
     nohup celery -A config.celery worker --beat > celery.log 2>&1 &      # Linux
     ```
+4. Celery se ejecutará todos los días a la 1 am la ETL encargada de obtener la data solicitada, por este motivo cuando se configure el proyecto la base de datos no tendrá información, pero tenemos dos opciones más para ejecutar la ETL y poder realizar las consultar pertinentes.
 
-## Instalación con Docker Compose
+    ```bash
+    http request:
+    curl -X 'POST' \
+    'http://localhost:8000/api/v1/process_data' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "date_base": "2024-02-17"
+    }'
+
+    Comando paver:
+    paver process_data --file_date=2024-02-17    
+    ```
+## Instalación y Ejecución con Docker Compose
 
 Para instalar y ejecutar la aplicación utilizando Docker Compose, sigue estos pasos:
 
@@ -100,12 +114,61 @@ Para instalar y ejecutar la aplicación utilizando Docker Compose, sigue estos p
     ```
     http://localhost:8000/docs
     ```
+9. Celery se ejecutará todos los días a la 1 am la ETL encargada de obtener la data solicitada, por este motivo cuando se configure el proyecto la base de datos no tendrá información, pero tenemos dos opciones más para ejecutar la ETL y poder realizar las consultar pertinentes.
+
+    ```bash
+    http request:
+    curl -X 'POST' \
+    'http://localhost:8000/api/v1/process_data' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "date_base": "2024-02-17"
+    }'
+
+    Comando paver:
+    paver process_data --file_date=2024-02-17  
+    ```
 
 Recuerda que si necesitas detener los contenedores en algún momento, puedes ejecutar:
 
     ```bash
     docker-compose down
     ```
+## Ejemplos de uso, consultas endpoints Fastapi
+    ```bash
+    Obtener una lista paginada de puntos de acceso WiFi:
+
+    curl -X 'GET' \
+    'http://localhost:8000/api/v1/wifi_access_points?offset=0&limit=50' \
+    -H 'accept: application/json'
+    ```
+
+    ```bash
+    Obtener una lista paginada de puntos de acceso dada una colonia:
+
+    curl -X 'GET' \
+    'http://localhost:8000/api/v1/wifi_access_points?offset=0&limit=50&colony=26%20DE%20JULIO' \
+    -H 'accept: application/json'
+    ```
+
+    ```bash
+    Consultar la información de un punto dado su ID:
+
+    curl -X 'GET' \
+    'http://localhost:8000/api/v1/wifi_access_points_by_id/26%20DE%20JULIO-02' \
+    -H 'accept: application/json'   
+    ```
+
+    ```bash
+    Obtener una lista paginada de puntos WiFi ordenada por proximidad a una coordenada dada [lat, long]:
+
+    curl -X 'GET' \
+    'http://localhost:8000/api/v1/wifi_ordered_by_proximity/latitude/19.357166/longitude/-99.250871?offset=0&limit=50' \
+    -H 'accept: application/json'    
+    ```
+
+
 ## Ejemplos de uso, consultas con GraphQL
     ```bash
     Obtener una lista paginada de puntos de acceso WiFi:
