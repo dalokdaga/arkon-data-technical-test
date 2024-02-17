@@ -1,8 +1,7 @@
 from app.core.component.elt_data_wifi import EtlDataWifi
-import config.enviroment as env
 
 
-class ProcessData:
+class ProcessDataConsole:
 
     @staticmethod
     def process_data(file_date: str):        

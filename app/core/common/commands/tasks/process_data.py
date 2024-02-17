@@ -1,6 +1,6 @@
 import re
 from paver.easy import task, cmdopts
-from app.core.common.commands.console.process_data_command import ProcessData
+from app.core.common.commands.console.process_data_command import ProcessDataConsole
 from app.core.exceptions import PaverCommandException
 
 @task
@@ -13,7 +13,7 @@ def process_data(options):
         if hasattr(options, 'file_date'):
             file_date = options.file_date
             if re.match(r'^\d{4}-\d{2}-\d{2}$', file_date):
-                ProcessData.process_data(file_date)
+                ProcessDataConsole.process_data(file_date)
                 print(f'{file_date} done!')
             else:
                 raise PaverCommandException("Invalid 'file_date' format. Please use YYYY-MM-DD.")

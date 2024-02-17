@@ -1,7 +1,7 @@
 from celery import Celery
 from celery.schedules import crontab
 from datetime import datetime
-from app.core.common.commands.console.process_data_command import ProcessData
+from app.core.common.commands.console.process_data_command import ProcessDataConsole
 import config.enviroment as env
 
 
@@ -12,7 +12,7 @@ app = Celery('tasks', backend=env.CELERY_BROKER_URL, broker=None)
 def my_task():
     try:
         fecha_actual = datetime.now()
-        ProcessData.process_data(fecha_actual.strftime("%Y-%m-%d"))
+        ProcessDataConsole.process_data(fecha_actual.strftime("%Y-%m-%d"))
         print("se ejecutó")
     except Exception as e:
         print(e)
