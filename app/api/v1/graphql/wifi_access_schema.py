@@ -9,11 +9,11 @@ from app.api.core.types import AccessPoint, PaginationInfo, AllResponse
 class Query:
     @strawberry.field
     def wifi_access_points(
-        offset: int = 0, limit: int = 50, cologne: Optional[str] = None
+        offset: int = 0, limit: int = 50, colony: Optional[str] = None
     ) -> AllResponse:
         results = None
-        if cologne:
-            results = ApiHandler.data_by_cologne_handler(cologne=cologne, offset=offset, limit=limit)
+        if colony:
+            results = ApiHandler.data_by_colony_handler(colony=colony, offset=offset, limit=limit)
         else:
             results = ApiHandler.list_all_handler(offset=offset, limit=limit)
 

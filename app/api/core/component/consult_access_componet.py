@@ -9,8 +9,8 @@ class ConsultAccessComponent:
         return records
 
     @staticmethod
-    def by_cologne_run(cologne: str, offset, limit) -> list:
-        records = search_wifi_records_like(cologne, offset, limit)       
+    def by_colony_run(colony: str, offset, limit) -> list:
+        records = search_wifi_records_like(colony, offset, limit)       
         return records
 
     @staticmethod

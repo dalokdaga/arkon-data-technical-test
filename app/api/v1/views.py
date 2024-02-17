@@ -13,11 +13,11 @@ router = APIRouter()
 @router.get("/wifi_access_points", response_model=AllResponse)
 def wifi_access_points(
         offset: int = Query(default=0, ge=0), limit: int = Query(default=50, le=1000), 
-        cologne: str = None) -> AllResponse:
+        colony: str = None) -> AllResponse:
     try:
         results = None
-        if cologne:
-            results = ApiHandler.data_by_cologne_handler(cologne=cologne, offset=offset, limit=limit)
+        if colony:
+            results = ApiHandler.data_by_colony_handler(colony=colony, offset=offset, limit=limit)
         else:
             results = ApiHandler.list_all_handler(offset=offset, limit=limit)
 

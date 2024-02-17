@@ -89,7 +89,7 @@ class EtlDataWifi(BaseComponent):
     def load(self) -> None:
         try:       
             database = FactoryDB.set_database()
-            database.save_data(self.__data_frame, 'registros_wifi')
+            database.save_data(self.__data_frame, 'wifi_logs')
             database.save_data(self.__colonies, 'colonies')
 
             database.disconnect()

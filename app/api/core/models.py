@@ -17,7 +17,7 @@ class Colony(Base):
 
 
 class WifiRecord(Base):
-    __tablename__ = 'registros_wifi'
+    __tablename__ = 'wifi_logs'
     index = Column(Integer, primary_key=True)
     id = Column(String)    
     id_colonia = Column(Integer, ForeignKey('colonies.id'))

@@ -19,7 +19,7 @@
 }
 
 {
-  wifiAccessPoints(offset: 0, limit: 10, cologne: "1A AMPLIACION SANTIAGO ACAHUALTEPEC") {
+  wifiAccessPoints(offset: 0, limit: 10, colony: "1A AMPLIACION SANTIAGO ACAHUALTEPEC") {
     accessPoints {
       id
       programa

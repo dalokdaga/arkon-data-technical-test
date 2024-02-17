@@ -13,8 +13,8 @@ class ApiProcess:
         return ConsultAccessComponent.by_id_run(id)
 
     @staticmethod
-    def data_by_cologne_process(cologne: str, offset: int, limit: int) -> dict:
-        return ConsultAccessComponent.by_cologne_run(cologne, offset, limit)
+    def data_by_colony_process(colony: str, offset: int, limit: int) -> dict:
+        return ConsultAccessComponent.by_colony_run(colony, offset, limit)
 
     @staticmethod
     def wifi_ordered_by_proximity_process(latitude: float, longitude: float, offset: int, limit: int) -> list:
