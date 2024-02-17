@@ -62,80 +62,80 @@ Descripción corta del proyecto.
     ```
 
 ## Estructura del Proyecto
-
-arkon-data-technical-test/
-│
-├───app/
-│   ├───api/ : Estructura de API
-│   │   ├───core/
-│   │   │   ├───component/
-│   │   │   │   ├───consult_access_component.py
-│   │   │   │   └───__init__.py
-│   │   │   ├───serializers/
-│   │   │   │   ├───all_response.py
-│   │   │   │   ├───id_response.py
-│   │   │   │   └───process_data_serializer.py
-│   │   │   ├───exceptions.py
-│   │   │   ├───handler.py
-│   │   │   ├───helper.py
-│   │   │   ├───models.py
-│   │   │   ├───paginator.py
-│   │   │   ├───query_set.py
-│   │   │   └───types.py
-│   │   ├───v1/
-│   │   │   ├───graphql/
-│   │   │   │   └───wifi_access_schema.py
-│   │   │   └───views.py
-│   │   └───__init__.py
-│   ├───core/ : Estructura para la ETL que prepara la data en la BD
-│   │   ├───common/
-│   │   │   ├───commands/
-│   │   │   │   ├───console/
-│   │   │   │   │   └───process_data_command.py
-│   │   │   │   └───tasks/
-│   │   │   │       └───process_data
-│   │   │   └───utilities.py
-│   │   ├───component/
-│   │   │   ├───base_component.py
-│   │   │   └───elt_data_wifi.py
-│   │   └───exceptions.py
-│   └───__init__.py
-│
-├───config/
-│   ├───db/
-│   │   ├───drivers/
-│   │   │   ├───mysql/
-│   │   │   │   ├───driver.py
-│   │   │   │   └───__init__.py
-│   │   │   ├───base_driver.py
-│   │   │   └───rule_db.json
-│   │   ├───conection_orm.py
-│   │   ├───create_database.sql
-│   │   └───factory_db.py
-│   ├───app_run.py
-│   ├───celery.py
-│   ├───enviroment.py
-│   ├───logging.py
-│   └───__init__.py
-│
-├───diagrams/
-│   ├───arquitectura_arkon.jpg
-│   ├───Diagrama-DFD-LNL-0.jpg
-│   ├───Diagrama-DFD-LNL-1.jpg
-│   └───Diagrama-DFD-LNL-2.jpg
-│
-├───tests/
-│   ├───__init__.py
-│   └───test_api_handler.py
-│
-├───.gitignore
-├───docker-compose.yml
-├───Dockerfile
-├───granphQL
-├───pavement.py
-├───README.md
-└───requirements.txt
-
+    ```bash
+    arkon-data-technical-test/
+    │
+    ├───app/
+    │   ├───api/ : Estructura de API
+    │   │   ├───core/
+    │   │   │   ├───component/
+    │   │   │   │   ├───consult_access_component.py
+    │   │   │   │   └───__init__.py
+    │   │   │   ├───serializers/
+    │   │   │   │   ├───all_response.py
+    │   │   │   │   ├───id_response.py
+    │   │   │   │   └───process_data_serializer.py
+    │   │   │   ├───exceptions.py
+    │   │   │   ├───handler.py
+    │   │   │   ├───helper.py
+    │   │   │   ├───models.py
+    │   │   │   ├───paginator.py
+    │   │   │   ├───query_set.py
+    │   │   │   └───types.py
+    │   │   ├───v1/
+    │   │   │   ├───graphql/
+    │   │   │   │   └───wifi_access_schema.py
+    │   │   │   └───views.py
+    │   │   └───__init__.py
+    │   ├───core/ : Estructura para la ETL que prepara la data en la BD
+    │   │   ├───common/
+    │   │   │   ├───commands/
+    │   │   │   │   ├───console/
+    │   │   │   │   │   └───process_data_command.py
+    │   │   │   │   └───tasks/
+    │   │   │   │       └───process_data
+    │   │   │   └───utilities.py
+    │   │   ├───component/
+    │   │   │   ├───base_component.py
+    │   │   │   └───elt_data_wifi.py
+    │   │   └───exceptions.py
+    │   └───__init__.py
+    │
+    ├───config/
+    │   ├───db/
+    │   │   ├───drivers/
+    │   │   │   ├───mysql/
+    │   │   │   │   ├───driver.py
+    │   │   │   │   └───__init__.py
+    │   │   │   ├───base_driver.py
+    │   │   │   └───rule_db.json
+    │   │   ├───conection_orm.py
+    │   │   ├───create_database.sql
+    │   │   └───factory_db.py
+    │   ├───app_run.py
+    │   ├───celery.py
+    │   ├───enviroment.py
+    │   ├───logging.py
+    │   └───__init__.py
+    │
+    ├───diagrams/
+    │   ├───arquitectura_arkon.jpg
+    │   ├───Diagrama-DFD-LNL-0.jpg
+    │   ├───Diagrama-DFD-LNL-1.jpg
+    │   └───Diagrama-DFD-LNL-2.jpg
+    │
+    ├───tests/
+    │   ├───__init__.py
+    │   └───test_api_handler.py
+    │
+    ├───.gitignore
+    ├───docker-compose.yml
+    ├───Dockerfile
+    ├───granphQL
+    ├───pavement.py
+    ├───README.md
+    └───requirements.txt
+    ```
 ## Diagramas
 
 ### Arquitectura Arkon
