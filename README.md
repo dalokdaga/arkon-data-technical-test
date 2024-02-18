@@ -1,6 +1,24 @@
 # arkon-data-technical-test
 
-Descripción corta del proyecto.
+
+El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos de la Ciudad de México relacionados con los puntos de acceso WiFi en la ciudad. El objetivo es almacenar esta información en una base de datos y proporcionar un API Rest para consultarla. Los requisitos incluyen el diseño y la implementación de un API que permita:
+
+- Obtener una lista paginada de puntos de acceso WiFi.
+- Consultar la información de un punto dado su ID.
+- Obtener una lista paginada de puntos de acceso dada una colonia.
+- Obtener una lista paginada de puntos WiFi ordenada por proximidad a una coordenada dada [lat, long].
+
+## Índice
+
+1. [Requisitos](#requisitos)
+2. [Instalación Local Sin Docker](#instalación-local-sin-docker)
+3. [Configuración Local sin docker](#configuración-local-sin-docker)
+4. [Uso Local sin docker](#uso-local-sin-docker)
+5. [Instalación y Ejecución con Docker Compose](#instalación-y-ejecución-con-docker-compose)
+6. [Ejemplos de uso, consultas endpoints Fastapi](#ejemplos-de-uso-consultas-endpoints-fastapi)
+7. [Ejemplos de uso, consultas con GraphQL](#ejemplos-de-uso-consultas-con-graphql)
+8. [Estructura del Proyecto](#estructura-del-proyecto)
+9. [Diagramas](#diagramas)
 
 ## Requisitos
 
@@ -171,6 +189,8 @@ Recuerda que si necesitas detener los contenedores en algún momento, puedes eje
 
 ## Ejemplos de uso, consultas con GraphQL
     ```bash
+    Ir a la url http://localhost:8000/graphql
+
     Obtener una lista paginada de puntos de acceso WiFi:
     {
         wifiAccessPoints(offset: 0, limit: 10) {
