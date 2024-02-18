@@ -37,6 +37,8 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
 2. Crea y activa un entorno virtual:
 
     ```bash
+    cd arkon-data-technical-test
+
     # Windows
     python -m venv venv
     venv\Scripts\activate
@@ -49,7 +51,6 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
 3. Instala las dependencias:
 
     ```bash
-    cd arkon-data-technical-test
     pip install -r requirements.txt
     ```
 
