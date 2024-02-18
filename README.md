@@ -34,7 +34,19 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
     git clone https://github.com/dalokdaga/arkon-data-technical-test
     ```
 
-2. Instala las dependencias:
+2. Crea y activa un entorno virtual:
+
+    ```bash
+    # Windows
+    python -m venv venv
+    venv\Scripts\activate
+    
+    # Linux
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3. Instala las dependencias:
 
     ```bash
     cd arkon-data-technical-test
