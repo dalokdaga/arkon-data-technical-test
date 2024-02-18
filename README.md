@@ -21,8 +21,10 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
 9. [Diagramas](#diagramas)
 
 
-[Descargar Video de Demostración Mega](https://mega.nz/file/kIAiQYjK#cKTmgrxFJ1Hoc5FnRGxCsTWdPTIT8rxe0KGJ3ucF5EE)
-[Descargar Video de Demostración Drive](https://drive.google.com/file/d/14M1o2FU8HmV7MNx4o9SqUOJB98Lpx07j/view?usp=drive_link)
+## Ver O Descargar Video De Demostración
+
+1. [Por Mega](https://mega.nz/file/kIAiQYjK#cKTmgrxFJ1Hoc5FnRGxCsTWdPTIT8rxe0KGJ3ucF5EE)
+2. [Por Drive](https://drive.google.com/file/d/14M1o2FU8HmV7MNx4o9SqUOJB98Lpx07j/view?usp=drive_link)
 
 ## Requisitos
 
