@@ -35,7 +35,7 @@ services:
       depends_on:
         - redis-arkon-data
 
-  mysql-arkon-data:  # Cambio de nombre aquí
+  mysql-arkon-data:
     container_name: mysql_arkon
     image: mysql:5.7
     command: --default-authentication-plugin=mysql_native_password
