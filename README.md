@@ -60,7 +60,7 @@ El proyecto es un pipeline de análisis de datos que utiliza los datos abiertos 
 
     ```
     TYPE_DB=mysql
-    CONNECTION_URI=mysql+pymysql://user:password@localhost:3306/arkon_test  # registra tus credenciales de mysql
+    CONNECTION_URI=mysql+pymysql://user:password@localhost:3306/arkon_test
     SQLITE_DB_PATH=storage/database/database.db
     PATH_RULE_DB=config/db/drivers/rule_db.json
     FILE_NAME=puntos_de_acceso_wifi.csv
