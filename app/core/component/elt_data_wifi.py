@@ -8,7 +8,7 @@ from app.core.component.base_component import BaseComponent
 
 
 class EtlDataWifi(BaseComponent):
-    def __init__(self, base_date: str=None) -> None:
+    def __init__(self, base_date: str = None) -> None:
         self.__base_date = base_date
         self.run()
 

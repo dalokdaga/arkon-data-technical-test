@@ -22,7 +22,6 @@ def my_task():
         print(e)   
 
 
-
 # Set the schedule to run the task every day at 1:00 AM.
 app.conf.beat_schedule = {
     'ejecutar-tarea-diaria': {

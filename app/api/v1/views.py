@@ -4,7 +4,7 @@ from app.api.core.handler import ApiHandler
 from app.api.core.serializers.all_response import AllResponse
 from app.api.core.serializers.id_response import AccessPoint
 from fastapi_pagination.utils import disable_installed_extensions_check
-from app.api.core.serializers.process_data_serializer import ProcessData,ProcessDataResponse
+from app.api.core.serializers.process_data_serializer import ProcessData, ProcessDataResponse
 from app.core.common.commands.console.process_data_command import ProcessDataConsole
 
 disable_installed_extensions_check()
@@ -46,6 +46,7 @@ def wifi_ordered_by_proximity(
         return AllResponse(access_points=results["access_points"], pagination_info=results["pagination_info"])
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.post("/process_data")
 def create_invoice(process_data: ProcessData) -> ProcessDataResponse:

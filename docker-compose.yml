@@ -17,6 +17,23 @@ services:
       - CELERY_BROKER_URL=redis://redis-arkon-data:6379/0
     depends_on:
       - mysql-arkon-data
+      - celery-worker
+
+  celery-worker:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      command: celery -A config.celery worker --beat
+      environment:
+        - TYPE_DB=mysql
+        - CONNECTION_URI=mysql+pymysql://root:dgu123456@mysql-arkon-data:3306/arkon_test
+        - PATH_RULE_DB=config/db/drivers/rule_db.json
+        - FILE_NAME=puntos_de_acceso_wifi.csv
+        - FILE_PATH=storage/data_cdmx_wifi
+        - URL_BASE=https://datos.cdmx.gob.mx/dataset/aa2ff336-b4aa-44f3-b38a-f303ef0f7673/resource/98f51fe2-18cb-4f50-a989-b9f81a2b5a76/download/{BASE_DATE}-puntos_de_acceso_wifi.csv
+        - CELERY_BROKER_URL=redis://redis-arkon-data:6379/0
+      depends_on:
+        - redis-arkon-data
 
   mysql-arkon-data:  # Cambio de nombre aquí
     container_name: mysql_arkon

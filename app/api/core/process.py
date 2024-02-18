@@ -2,7 +2,6 @@
 from app.api.core.component.consult_access_componet import ConsultAccessComponent
 
 
-
 class ApiProcess:
     @staticmethod
     def list_all_process(offset: int, limit: int) -> dict:
